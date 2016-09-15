@@ -1,21 +1,21 @@
 library(shiny)
+# Define UI for application that plots random distributions 
 shinyUI(pageWithSidebar(
-    headerPanel("Illustrating inputs"),
+    
+    # Application title
+    headerPanel("Normal Generator"),
+    
+    # Sidebar with a slider input for number of observations
     sidebarPanel(
-        numericInput('id1', 'Numeric input, labeled id1', 0, min = 0, max = 10, step = 1),
-        checkboxGroupInput("id2", "Checkbox",
-                           c("Value 1" = "1",
-                             "Value 2" = "2",
-                             "Value 3" = "3")),
-        dateInput("date", "Date:")
+        sliderInput("obs", 
+                    "Number of observations:", 
+                    min = 1,
+                    max = 10000, 
+                    value = 5000)
     ),
+    
+    # Show a plot of the generated distribution
     mainPanel(
-        h3('Illustrating outputs'),
-        h4('You entered'),
-        verbatimTextOutput("oid1"),
-        h4('You entered'),
-        verbatimTextOutput("oid2"),
-        h4('You entered'),
-        verbatimTextOutput("odate")
+        plotOutput("distPlot")
     )
 ))

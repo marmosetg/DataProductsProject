@@ -1,8 +1,16 @@
 library(shiny)
-shinyServer(
-    function(input, output) {
-        output$oid1 <- renderPrint({input$id1})
-        output$oid2 <- renderPrint({input$id2})
-        output$odate <- renderPrint({input$date})
-    }
-)
+# Define server logic required to generate and plot a random distribution
+shinyServer(function(input, output) {
+    
+    # Expression that generates a plot of the distribution. 
+    #
+    #  1) automatically re-executed when inputs change
+    #  2) Its output type is a plot 
+    #
+    output$distPlot <- renderPlot({
+        
+        # generate an rnorm distribution and plot it
+        dist <- rnorm(input$obs)
+        hist(dist)
+    })
+})
