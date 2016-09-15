@@ -1,0 +1,64 @@
+The Pitch (fun w/rnorm)
+===
+transition: rotate
+author: Scott Posey
+date: 09/14/2016
+
+Application Description
+===
+
+This is a simple application to demonstrate the use of shiny.
+
++ Input: Number of Observations (via slider widget) 
++ Output: Histogram of the rnormal distribution
+
+(if that's not fun, I don't know what is)
+
+Client Code (ui.R)
+===
+```{r}
+library(shiny)
+# Define UI for application that plots random distributions 
+shinyUI(pageWithSidebar(  
+    # Application title
+    headerPanel("Normal Generator"),   
+    # Sidebar with a slider input for number of observations
+    sidebarPanel(
+        sliderInput("obs", 
+                    "Number of observations:", 
+                    min = 1,
+                    max = 10000, 
+                    value = 5000)
+    ),    
+    # Show a plot of the generated distribution
+    mainPanel(
+        plotOutput("distPlot")
+    )
+))
+```
+
+Server Code (server.R)
+===
+
+```{r}
+library(shiny)
+# Define server logic required to generate and plot a random distribution
+shinyServer(function(input, output) {   
+    # Expression that generates a plot of the distribution. 
+    #
+    #  1) automatically re-executed when inputs change
+    #  2) Its output type is a plot 
+    #
+    output$distPlot <- renderPlot({
+        # generate an rnorm distribution and plot it
+        dist <- rnorm(input$obs)
+        hist(dist)
+    })
+})
+```
+
+Shiny App
+===
+Link to application on Shinyapps website
+
+https://marmoset.shinyapps.io/DataProductsProject/
